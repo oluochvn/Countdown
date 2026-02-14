@@ -6,24 +6,24 @@ import { Timer } from "lucide-react"
 
 function App() {
   const [dark,setDark] = useState(true)
-  const [time,setTime] = useState(5000);
+  const [time,setTime] = useState<number>(5000);
   
-  useEffect(()=>{
-        const targetDate = new Date("2026-02-26T00:00:00") // target date
+
+  useEffect(() => {
+    const targetDate = new Date("2026-02-26T00:00:00").getTime()
+
     const updateTime = () => {
-      const now = new Date()
+      const now = new Date().getTime()
       const diff = targetDate - now
       setTime(diff > 0 ? diff : 0)
     }
-     updateTime()
-    if(time > 0){
-        setTimeout(()=>{
-        setTime(time-1000)
-    },1000)
-  }
-    },[time]);
 
-const getFormattedTime = (time) => {
+    updateTime()
+    const interval = setInterval(updateTime, 1000)
+    return () => clearInterval(interval)
+  }, [])
+
+const getFormattedTime = (time : number) => {
   let totalSeconds = Math.floor(time / 1000)
 
   let days = Math.floor(totalSeconds / (24 * 60 * 60))
