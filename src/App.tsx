@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect} from "react"
 import { Sunrise } from "lucide-react"
 import { MoonStar } from "lucide-react"
 import { Timer } from "lucide-react"
@@ -6,6 +6,35 @@ import { Timer } from "lucide-react"
 
 function App() {
   const [dark,setDark] = useState(true)
+  const [time,setTime] = useState(5000);
+  
+  useEffect(()=>{
+        const targetDate = new Date("2026-02-26T00:00:00") // target date
+    const updateTime = () => {
+      const now = new Date()
+      const diff = targetDate - now
+      setTime(diff > 0 ? diff : 0)
+    }
+     updateTime()
+    if(time > 0){
+        setTimeout(()=>{
+        setTime(time-1000)
+    },1000)
+  }
+    },[time]);
+
+const getFormattedTime = (time) => {
+  let totalSeconds = Math.floor(time / 1000)
+
+  let days = Math.floor(totalSeconds / (24 * 60 * 60))
+  let hours = Math.floor((totalSeconds % (24 * 60 * 60)) / (60 * 60))
+  let minutes = Math.floor((totalSeconds % (60 * 60)) / 60)
+  let seconds = totalSeconds % 60
+
+  return { days, hours, minutes, seconds }
+}
+  const { days, hours, minutes, seconds } = getFormattedTime(time)
+
 
   return (
     <div className={`${dark ? "bg-black": "bg-[beige]"} ${dark ? "text-white": "text-black"} min-h-screen transition duration-900 ease-in-out`}>
@@ -21,6 +50,9 @@ function App() {
         </button>
         
       </nav>
+      <div className=" min-h-[90vh] items-center flex justify-center text-4xl">
+         {days}D: {hours}H : {minutes}M : {seconds}S
+      </div>
     </div>
   )
 }
