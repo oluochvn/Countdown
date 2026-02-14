@@ -7,6 +7,7 @@ import { Timer } from "lucide-react"
 function App() {
   const [dark,setDark] = useState(true)
   const [time,setTime] = useState<number>(5000);
+  const [red ,setRed] = useState(false) 
   
 
   useEffect(() => {
@@ -23,6 +24,7 @@ function App() {
     return () => clearInterval(interval)
   }, [])
 
+
 const getFormattedTime = (time : number) => {
   let totalSeconds = Math.floor(time / 1000)
 
@@ -35,12 +37,16 @@ const getFormattedTime = (time : number) => {
 }
   const { days, hours, minutes, seconds } = getFormattedTime(time)
 
+    useEffect(()=>{
+    (days < 5) ? setRed(true) : setRed(false)
+  },[days])
+
 
   return (
     <div className={`${dark ? "bg-black": "bg-[beige]"} ${dark ? "text-white": "text-black"} min-h-screen transition duration-900 ease-in-out`}>
       <nav className="flex justify-around pt-6 items-center">
         <div className="flex gap-2 items-center">
-           <Timer className="hover:text-red-500 transition duration-500 ease-in-out"/>
+           <Timer className="hover:text-red-900 transition duration-500 ease-in-out"/>
             <h1>Countdown</h1>
            
         </div>
@@ -50,7 +56,7 @@ const getFormattedTime = (time : number) => {
         </button>
         
       </nav>
-      <div className=" min-h-[90vh] items-center flex justify-center text-4xl">
+      <div className={`min-h-[90vh] items-center ${red ? "text-lime-300": "text-amber-600" } flex justify-center text-6xl font-light font-[Roboto] `}>
          {days}D: {hours}H : {minutes}M : {seconds}S
       </div>
     </div>
