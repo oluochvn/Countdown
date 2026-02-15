@@ -43,7 +43,7 @@ const getFormattedTime = (time : number) => {
 
 
   return (
-    <div className={`${dark ? "bg-black": "bg-[beige]"} ${dark ? "text-white": "text-black"} min-h-screen transition duration-900 ease-in-out`}>
+    <div className={`${dark ? "bg-black": "bg-[beige]"} ${dark ? "text-amber-600": "text-amber-600"} min-h-screen transition duration-900 ease-in-out`}>
       <nav className="flex justify-around pt-6 items-center">
         <div className="flex gap-2 items-center">
            <Timer className="hover:text-red-900 transition duration-500 ease-in-out"/>
