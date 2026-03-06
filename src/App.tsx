@@ -11,7 +11,7 @@ function App() {
   
 
   useEffect(() => {
-    const targetDate = new Date("2026-02-26T06:30:00").getTime()
+    const targetDate = new Date("2026-12-31T23:59:59").getTime()
 
     const updateTime = () => {
       const now = new Date().getTime()
